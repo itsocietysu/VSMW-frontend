@@ -35,8 +35,7 @@ export class RedirectPage extends React.PureComponent {
     if (loading) content = <LoadingIndicator />;
     else if (error) {
       content = <div>Всё плохо</div>;
-    } else if (session)
-      content = <Redirect to={`/session/${session[0].eid}`} />;
+    } else if (session) content = <Redirect to={`/session/${session[0]}`} />;
     else content = null;
     return (
       <article>
@@ -56,7 +55,7 @@ export class RedirectPage extends React.PureComponent {
 RedirectPage.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  session: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]), // TODO: change on object
+  session: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
   init: PropTypes.func,
 };
 
