@@ -23,6 +23,8 @@ import App from 'containers/App';
 import '!file-loader?name=[name].[ext]!./images/favicon.ico';
 import 'file-loader?name=[name].[ext]!./.htaccess'; // eslint-disable-line import/extensions
 
+import '!file-loader?name=[name].[ext]!./images/icon-26x26.jpg';
+
 import configureStore from './configureStore';
 
 // Import CSS reset and Global Styles
