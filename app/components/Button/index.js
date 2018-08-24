@@ -16,6 +16,7 @@ function Button(props) {
       onClick={() => props.active && props.onClick()}
       color={props.color}
       active={props.active}
+      clicked={props.clicked}
     >
       {props.children}
     </StyledButton>
@@ -27,6 +28,7 @@ Button.propTypes = {
   children: PropTypes.object,
   color: PropTypes.string,
   active: PropTypes.bool,
+  clicked: PropTypes.bool,
 };
 
 export default Button;

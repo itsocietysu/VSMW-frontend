@@ -10,19 +10,23 @@ const StyledButton = styled.button`
   font-weight: bold;
   font-size: 16px;
   ${props =>
-    props.active
-      ? `
+    props.active &&
+    `
   color: black;
   background: white;
 
   &:hover {
     background: ${props.color};
     color: #fff;
-  } `
-      : `
+  } `};
+  ${props =>
+    props.clicked
+      ? `
   background: ${props.color};
     color: #fff;
-  `};
+  `
+      : `color: black;
+  background: white;`};
 `;
 
 export default StyledButton;

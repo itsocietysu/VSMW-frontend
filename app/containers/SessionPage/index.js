@@ -75,6 +75,7 @@ export class SessionPage extends React.PureComponent {
                   this.props.sendVote(100);
                 }}
                 active={vote.value === -1}
+                clicked={vote.value === String(100)}
                 children={<h1>Да</h1>}
               />
               <Button
@@ -83,6 +84,7 @@ export class SessionPage extends React.PureComponent {
                   this.props.sendVote(0);
                 }}
                 active={vote.value === -1}
+                clicked={vote.value === String(0)}
                 children={<h1>Нет</h1>}
               />
             </div>

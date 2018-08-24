@@ -25,7 +25,7 @@ export const initialState = fromJS({
   vote: {
     session: '',
     fingerprint: '',
-    value: 0,
+    value: -1,
   },
   uniqID: getUniqID() || '',
 });
@@ -51,7 +51,7 @@ function voteReducer(state = initialState, action) {
           fromJS({
             session: state.get('sessionID'),
             fingerprint: getUniqID(),
-            value: 0,
+            value: -1,
           }),
         );
     case GET_VOTE_SUCCESS:

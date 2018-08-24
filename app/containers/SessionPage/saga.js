@@ -37,15 +37,15 @@ export function* getVote() {
   const sessionID = yield select(makeSelectSessionID());
   const requestURL = `http://89.108.103.193:4200/vsmw/vote/${sessionID}/${uniqID}`;
   try {
-    let vote = yield call(request, requestURL);
-    console.log(vote);
-    if (!vote.length)
-      vote = {
-        session: sessionID,
-        fingerprint: uniqID,
-        value: -1,
-      };
-    yield put(voteGot(vote));
+    const vote = yield call(request, requestURL);
+    const newVote = {
+      session: sessionID,
+      fingerprint: uniqID,
+      value: -1,
+    };
+    if (!vote.length) newVote.value = -1;
+    else newVote.value = vote[0].value;
+    yield put(voteGot(newVote));
   } catch (err) {
     yield put(voteGettingError(err));
   }
