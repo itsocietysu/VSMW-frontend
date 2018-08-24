@@ -55,7 +55,7 @@ export class SessionPage extends React.PureComponent {
     let content;
     if (loading) content = <LoadingIndicator />;
     else if (error) {
-      content = <div>{error.response.statusText}</div>;
+      content = <div>Ошибка</div>;
     } else if (session) {
       content = (
         <Component image={`http://${session.image}`}>
@@ -75,7 +75,7 @@ export class SessionPage extends React.PureComponent {
                   this.props.sendVote(100);
                 }}
                 active={vote.value === -1}
-                clicked={vote.value === String(100)}
+                clicked={vote.value === 100}
                 children={<h1>Да</h1>}
               />
               <Button
@@ -84,7 +84,7 @@ export class SessionPage extends React.PureComponent {
                   this.props.sendVote(0);
                 }}
                 active={vote.value === -1}
-                clicked={vote.value === String(0)}
+                clicked={vote.value === 0}
                 children={<h1>Нет</h1>}
               />
             </div>

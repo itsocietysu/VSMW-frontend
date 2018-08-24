@@ -43,8 +43,7 @@ export function* getVote() {
       fingerprint: uniqID,
       value: -1,
     };
-    if (!vote.length) newVote.value = -1;
-    else newVote.value = vote[0].value;
+    if (vote.length) newVote.value = Number(vote[0].value);
     yield put(voteGot(newVote));
   } catch (err) {
     yield put(voteGettingError(err));
