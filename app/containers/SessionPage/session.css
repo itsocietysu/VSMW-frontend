@@ -1,0 +1,13 @@
+h1 {
+  font-size: 4em;
+  text-align: center;
+}
+
+.flex {
+  text-align: center;
+}
+
+.rc-slider {
+  max-width: 50%;
+  margin: auto;
+}

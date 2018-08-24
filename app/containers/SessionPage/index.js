@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable react/no-unused-prop-types,react/no-children-prop,no-unused-expressions */
 /*
  * SessionPage
  *
@@ -12,46 +12,84 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import styled from 'styled-components';
+
 import Fingerprint2 from 'fingerprintjs2';
 import { getUniqID, setUniqID } from '../../cookieManager';
 
+import Button from '../../components/Button';
 import LoadingIndicator from '../../components/LoadingIndicator';
 import injectReducer from '../../utils/injectReducer';
 import injectSaga from '../../utils/injectSaga';
+import Slider from '../Slider';
 import {
   makeSelectError,
   makeSelectLoading,
+  makeSelectSession,
   makeSelectVote,
 } from './selectors';
-import { makeSelectSession } from '../RedirectPage/selectors';
-import { sendUniqID, getVote } from './actions';
+import { getSession, getVote, sendVote } from './actions';
 import reducer from './reducer';
 import saga from './saga';
+
+import './session.css';
+
+const Component = styled.div`
+  width: 100%;
+  overflow: hidden;
+  height: 100vh;
+  background: url(${props => props.image}) no-repeat 50% / contain;
+`;
 
 /* eslint-disable react/prefer-stateless-function */
 export class SessionPage extends React.PureComponent {
   componentDidMount() {
-    if (!getUniqID()) this.props.createID();
-    else this.props.init();
+    this.props.initSession(this.props.match.params.id);
   }
   componentDidUpdate() {
-    const { loading, error, vote } = this.props;
-    if (!loading && !error && !vote) this.props.init();
+    if (!getUniqID()) this.props.createID();
+    else if (this.props.vote.fingerprint !== getUniqID()) this.props.initVote();
   }
   render() {
     const { loading, error, vote, session } = this.props;
     let content;
     if (loading) content = <LoadingIndicator />;
     else if (error) {
-      content = <div>Всё плохо</div>;
-    } else if (vote)
+      content = <div>{error.response.statusText}</div>;
+    } else if (session) {
       content = (
-        <div>
-          <div>{`session: ${session[0].eid}`}</div>
-          <div>{`vote: ${vote[0].eid}`}</div>
-        </div>
+        <Component image={`http://${session.image}`}>
+          <h1>{session.title}</h1>
+          {session.type === 'slider' && (
+            <Slider
+              disabled={vote.value !== -1}
+              defaultValue={vote.value === -1 ? 0 : vote.value}
+              onAfterChange={value => this.props.sendVote(value)}
+            />
+          )}
+          {session.type === 'poll' && (
+            <div className="flex">
+              <Button
+                color="red"
+                onClick={() => {
+                  this.props.sendVote(100);
+                }}
+                active={vote.value === -1}
+                children={<h1>Да</h1>}
+              />
+              <Button
+                color="blue"
+                onClick={() => {
+                  this.props.sendVote(0);
+                }}
+                active={vote.value === -1}
+                children={<h1>Нет</h1>}
+              />
+            </div>
+          )}
+        </Component>
       );
-    else content = null;
+    } else content = null;
     return (
       <article>
         <Helmet>
@@ -70,9 +108,11 @@ export class SessionPage extends React.PureComponent {
 SessionPage.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  vote: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]), // TODO: change on number
-  session: PropTypes.array, // TODO: change on object
-  init: PropTypes.func,
+  vote: PropTypes.object,
+  session: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  initVote: PropTypes.func,
+  initSession: PropTypes.func,
+  sendVote: PropTypes.func,
   createID: PropTypes.func,
   match: PropTypes.object,
   history: PropTypes.object,
@@ -80,13 +120,14 @@ SessionPage.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    init: () => dispatch(getVote()),
+    initVote: () => dispatch(getVote()),
+    initSession: id => dispatch(getSession(id)),
     createID: () => {
       new Fingerprint2().get(result => {
         setUniqID(result);
-        dispatch(sendUniqID());
       });
     },
+    sendVote: value => dispatch(sendVote(value)),
   };
 }
 

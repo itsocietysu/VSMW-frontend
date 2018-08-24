@@ -1,30 +1,31 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import { GET_VOTE, SEND_UNIQ_ID } from './constants';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { GET_SESSION, GET_VOTE, SEND_VOTE } from './constants';
 import {
+  sessionGot,
+  sessionGettingError,
   voteGot,
   voteGettingError,
-  uniqIdSent,
-  uniqIdSendingError,
+  voteSent,
+  voteSendingError,
 } from './actions';
 
+import { makeSelectSessionID, makeSelectVote } from './selectors';
+
 import request from '../../utils/request';
+
 import { getUniqID } from '../../cookieManager';
 
 /**
- * Unique id create handler
+ * Session get handler
  */
-export function* createUniqID() {
-  const uniqID = getUniqID();
-  const requestURL = `http://each.itsociety.su:4201/vsmw/user/${uniqID}`; // TODO: change requestURL
-  const options = {
-    method: 'POST',
-  };
+export function* getSession() {
+  const sessionID = yield select(makeSelectSessionID());
+  const requestURL = `http://89.108.103.193:4200/vsmw/session/${sessionID}`;
   try {
-    yield call(request, requestURL, options);
-    console.log(uniqID);
-    yield put(uniqIdSent(uniqID));
+    const session = yield call(request, requestURL);
+    yield put(sessionGot(session[0]));
   } catch (err) {
-    yield put(uniqIdSendingError(err));
+    yield put(sessionGettingError(err));
   }
 }
 
@@ -32,12 +33,44 @@ export function* createUniqID() {
  * Vote get handler
  */
 export function* getVote() {
-  const requestURL = `http://each.itsociety.su:4201/each/feed/all`; // TODO: change requestURL
+  const uniqID = getUniqID();
+  const sessionID = yield select(makeSelectSessionID());
+  const requestURL = `http://89.108.103.193:4200/vsmw/vote/${sessionID}/${uniqID}`;
   try {
-    const session = yield call(request, requestURL);
-    yield put(voteGot(session));
+    let vote = yield call(request, requestURL);
+    console.log(vote);
+    if (!vote.length)
+      vote = {
+        session: sessionID,
+        fingerprint: uniqID,
+        value: -1,
+      };
+    yield put(voteGot(vote));
   } catch (err) {
     yield put(voteGettingError(err));
+  }
+}
+
+/**
+ * Vote send handler
+ */
+export function* sendVote() {
+  const voteData = yield select(makeSelectVote());
+  const options = {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(voteData),
+  };
+  const requestURL = `http://89.108.103.193:4200/vsmw/vote`;
+  try {
+    const vote = yield call(request, requestURL, options);
+    yield put(voteSent());
+    yield put(voteGot(vote[0]));
+  } catch (err) {
+    yield put(voteSendingError(err));
   }
 }
 
@@ -45,6 +78,7 @@ export function* getVote() {
  * Root saga manages watcher lifecycle
  */
 export default function* processVoteData() {
-  yield takeLatest(SEND_UNIQ_ID, createUniqID);
+  yield takeLatest(GET_SESSION, getSession);
   yield takeLatest(GET_VOTE, getVote);
+  yield takeLatest(SEND_VOTE, sendVote);
 }

@@ -6,15 +6,23 @@ const StyledButton = styled.button`
   text-decoration: none;
   cursor: pointer;
   outline: 0;
-  font-family: 'Book Antiqua', Palatino, 'Palatino Linotype', serif;
+  font-family: 'Arial Black', serif;
   font-weight: bold;
   font-size: 16px;
-  color: rgb(66, 31, 25);
+  ${props =>
+    props.active
+      ? `
+  color: black;
+  background: white;
 
   &:hover {
-    background: rgb(217, 146, 92);
+    background: ${props.color};
     color: #fff;
-  }
+  } `
+      : `
+  background: ${props.color};
+    color: #fff;
+  `};
 `;
 
 export default StyledButton;

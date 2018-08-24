@@ -13,7 +13,20 @@ const makeSelectLoading = () =>
 const makeSelectError = () =>
   createSelector(selectVote, voteState => voteState.get('error'));
 
-const makeSelectVote = () =>
-  createSelector(selectVote, voteState => voteState.get('vote'));
+const makeSelectSessionID = () =>
+  createSelector(selectVote, voteState => voteState.get('sessionID'));
 
-export { selectVote, makeSelectLoading, makeSelectError, makeSelectVote };
+const makeSelectSession = () =>
+  createSelector(selectVote, voteState => voteState.get('session'));
+
+const makeSelectVote = () =>
+  createSelector(selectVote, voteState => voteState.get('vote').toJS());
+
+export {
+  selectVote,
+  makeSelectLoading,
+  makeSelectError,
+  makeSelectSessionID,
+  makeSelectSession,
+  makeSelectVote,
+};
