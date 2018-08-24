@@ -56,7 +56,7 @@ export class RedirectPage extends React.PureComponent {
 RedirectPage.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  session: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
+  session: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]), // TODO: change on object
   init: PropTypes.func,
 };
 

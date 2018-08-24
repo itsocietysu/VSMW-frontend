@@ -8,7 +8,7 @@ import request from '../../utils/request';
  * Current session get handler
  */
 export function* getSession() {
-  const requestURL = `http://each.itsociety.su:4201/each/feed/all`;
+  const requestURL = `http://each.itsociety.su:4201/each/feed/all`; // TODO: change requestURL
   try {
     const session = yield call(request, requestURL);
     yield put(sessionGot(session));
