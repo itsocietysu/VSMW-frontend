@@ -27,7 +27,6 @@ export const initialState = fromJS({
     fingerprint: '',
     value: -1,
   },
-  uniqID: getUniqID() || '',
 });
 
 function voteReducer(state = initialState, action) {

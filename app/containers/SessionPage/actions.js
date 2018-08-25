@@ -17,7 +17,7 @@ import {
 /**
  * Get session by id, this action starts the request saga
  *
- * @param  {number} sessionID The current vote
+ * @param  {number} sessionID The current session id
  *
  * @return {object} An action object with a type of GET_SESSION passing sessionID
  */

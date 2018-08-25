@@ -42,7 +42,11 @@ const Component = styled.div`
   position: relative;
   overflow: hidden;
   text-align: center;
-  background: url(${props => props.image}) no-repeat 50% / contain;
+  background: url(${props => props.image}) no-repeat 50%;
+  background-size: contain;
+  @media screen and (max-width: 1080px) {
+    background-size: cover;
+  }
 `;
 
 /* eslint-disable react/prefer-stateless-function */

@@ -39,7 +39,7 @@ class CustomizedSlider extends React.Component {
             ${255 * (1 - percent)}
             )
           )`,
-          height: 10,
+          height: 15,
         }}
         handleStyle={[
           {
@@ -52,7 +52,7 @@ class CustomizedSlider extends React.Component {
             backgroundColor: 'white',
           },
         ]}
-        railStyle={{ height: 10 }}
+        railStyle={{ height: 15 }}
         disabled={this.props.disabled}
       />
     );
