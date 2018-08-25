@@ -24,13 +24,21 @@ class CustomizedSlider extends React.Component {
       this.props.onChangeValue(this.props.defaultValue);
   }
   render() {
+    const { value } = this.props;
+    const percent = value / 100;
     return (
       <Slider
-        value={this.props.value}
+        value={value}
         onChange={this.props.onChangeValue}
         onAfterChange={this.props.onAfterChange}
         trackStyle={{
-          background: 'linear-gradient(to right, white, red)',
+          background: `linear-gradient(to right, white,
+          rgb(
+            ${255 * (1 - percent) + 255 * percent},
+            ${255 * (1 - percent)},
+            ${255 * (1 - percent)}
+            )
+          )`,
           height: 10,
         }}
         handleStyle={[
