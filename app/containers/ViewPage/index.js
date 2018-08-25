@@ -65,8 +65,7 @@ export class ViewPage extends React.PureComponent {
     let content;
     if (loading && !session) content = <LoadingIndicator />;
     else if (error) {
-      if (error.message === 'No session') content = <Redirect to="/" />;
-      else content = <div>{error.message}</div>;
+      content = <Redirect to="/" />;
     } else if (session) {
       content = (
         <div className="component">

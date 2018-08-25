@@ -34,7 +34,8 @@ export class RedirectPage extends React.PureComponent {
     let content;
     if (loading) content = <LoadingIndicator />;
     else if (error) {
-      content = <div>{error.message}</div>;
+      content = <LoadingIndicator />;
+      this.props.init();
     } else if (session) content = <Redirect to={`/session/${session}`} />;
     else content = null;
     return (
