@@ -24,6 +24,8 @@ import '!file-loader?name=[name].[ext]!./images/favicon.ico';
 import 'file-loader?name=[name].[ext]!./.htaccess'; // eslint-disable-line import/extensions
 
 import '!file-loader?name=[name].[ext]!./images/icon-50x50.jpg';
+import '!file-loader?name=[name].[ext]!./images/logo_vsmysle_2018.svg';
+import '!file-loader?name=[name].[ext]!./images/logo-dark.svg';
 
 import configureStore from './configureStore';
 

@@ -63,7 +63,7 @@ export class SessionPage extends React.PureComponent {
     } else if (session) {
       content = (
         <Component image={`http://${session.image}`}>
-          <h1>{session.title}</h1>
+          <h1 className="title">{session.title}</h1>
           {session.type === 'slider' && (
             <Slider
               disabled={vote.value !== -1}
@@ -74,22 +74,22 @@ export class SessionPage extends React.PureComponent {
           {session.type === 'poll' && (
             <div className="flex">
               <Button
-                color="red"
+                color="#28385B"
                 onClick={() => {
                   this.props.sendVote(100);
                 }}
                 active={vote.value === -1}
                 clicked={vote.value === 100}
-                children={<h1>Да</h1>}
+                children={<h1 className="button">Да</h1>}
               />
               <Button
-                color="blue"
+                color="#BD2B2C"
                 onClick={() => {
                   this.props.sendVote(0);
                 }}
                 active={vote.value === -1}
                 clicked={vote.value === 0}
-                children={<h1>Нет</h1>}
+                children={<h1 className="button">Нет</h1>}
               />
             </div>
           )}

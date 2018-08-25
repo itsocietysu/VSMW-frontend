@@ -13,7 +13,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { Redirect } from 'react-router-dom';
 
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
 import LoadingIndicator from '../../components/LoadingIndicator';
 import injectReducer from '../../utils/injectReducer';
@@ -28,11 +28,6 @@ import reducer from './reducer';
 import saga from './saga';
 
 import './view.css';
-
-const Component = styled.div`
-  width: 100%;
-  height: 100vh;
-`;
 
 /* eslint-disable react/prefer-stateless-function */
 export class ViewPage extends React.PureComponent {
@@ -56,21 +51,27 @@ export class ViewPage extends React.PureComponent {
       else content = <div>{error.message}</div>;
     } else if (session) {
       content = (
-        <Component>
-          <h1>{session.title}</h1>
+        <div className="Component">
+          <h1 className="yes">{session.title}</h1>
           {session.type === 'slider' && (
             <div>
-              <h1>{`Average: ${session.stats[0]}`}</h1>
-              <h1>{`Count: ${session.stats[1]}`}</h1>
+              <h1 className="yes">{`Average: ${session.stats[0]}`}</h1>
+              <h1 className="yes">{`Count: ${session.stats[1]}`}</h1>
             </div>
           )}
           {session.type === 'poll' && (
             <div>
-              <h1>{`Yes: ${session.stats[0]}`}</h1>
-              <h1>{`No: ${session.stats[1]}`}</h1>
+              <h1 className="yes">{`Да: ${session.stats[0]}`}</h1>
+              <h1 className="no">{`Нет: ${session.stats[1]}`}</h1>
             </div>
           )}
-        </Component>
+          <img
+            className="img-left"
+            src="/logo_vsmysle_2018.svg"
+            alt="Форум ВСМЫСЛЕ"
+          />
+          <img className="img-right" src="/logo-dark.svg" alt="ITS" />
+        </div>
       );
     } else content = null;
     return (

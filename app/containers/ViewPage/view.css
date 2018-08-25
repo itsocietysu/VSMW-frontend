@@ -1,13 +1,30 @@
+.Component {
+  width: 100vw;
+  height: 100vh;
+}
+
 h1 {
   font-size: 4em;
   text-align: center;
+  margin-top: 0;
 }
 
-.flex {
-  text-align: center;
+.yes {
+  color: #28385B;
 }
 
-.rc-slider {
-  max-width: 250px;
-  margin: auto;
+.no {
+  color: #BD2B2C;
+}
+
+.img-left {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.img-right {
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }

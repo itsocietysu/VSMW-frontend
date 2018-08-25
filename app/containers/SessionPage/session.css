@@ -1,6 +1,13 @@
-h1 {
+.title {
   font-size: 4em;
   text-align: center;
+  color: #28385B;
+}
+
+.button {
+  font-size: 4em;
+  text-align: center;
+  color: black;
 }
 
 .flex {
