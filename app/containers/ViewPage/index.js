@@ -30,7 +30,7 @@ import saga from './saga';
 import './view.css';
 
 const Slider = styled.div`
-  height: ${props => `${props.value * 6}px`};
+  height: ${props => `${props.value * 5.5}px`};
   background-color: ${props => props.color};
   position: absolute;
   bottom: 0;
