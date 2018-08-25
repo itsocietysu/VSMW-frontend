@@ -10,26 +10,30 @@ const StyledButton = styled.button`
   font-weight: bold;
   font-size: 14px;
   border-radius: 10px;
-  border: 5px ${props => props.color} dashed;
+  width: 140px;
   ${props =>
     props.active &&
     `
   color: ${props.color};
   background: white;
   cursor: pointer;
+  border: 5px ${props.color} solid;
 
   &:hover {
     background: ${props.color};
     color: white;
+    border: 5px white double;
   } `};
   ${props =>
     props.clicked
       ? `
   background: ${props.color};
     color: white;
+    border: 5px white double;
   `
       : `color: ${props.color};
-  background: white;`};
+  background: white;
+  border: 5px ${props.color} solid;`};
 `;
 
 export default StyledButton;
