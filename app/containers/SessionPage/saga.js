@@ -23,6 +23,7 @@ export function* getSession() {
   const requestURL = `http://89.108.103.193:4200/vsmw/session/${sessionID}`;
   try {
     const session = yield call(request, requestURL);
+    if (!session.length) throw new Error('No session');
     yield put(sessionGot(session[0]));
   } catch (err) {
     yield put(sessionGettingError(err));

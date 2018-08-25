@@ -12,7 +12,7 @@ import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 
-import routes from 'routeConfig';
+import routes from '../../routeConfig';
 
 const AppWrapper = styled.div`
   margin: 0 auto;

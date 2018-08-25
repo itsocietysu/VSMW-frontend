@@ -1,5 +1,5 @@
 /**
- * VotePage selectors
+ * SessionPage selectors
  */
 
 import { createSelector } from 'reselect';
@@ -11,7 +11,7 @@ const makeSelectLoading = () =>
   createSelector(selectVote, voteState => voteState.get('loading'));
 
 const makeSelectError = () =>
-  createSelector(selectVote, voteState => voteState.get('error'));
+  createSelector(selectVote, voteState => voteState.get('error').toJS());
 
 const makeSelectSessionID = () =>
   createSelector(selectVote, voteState => voteState.get('sessionID'));

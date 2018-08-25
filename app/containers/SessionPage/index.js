@@ -12,6 +12,8 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import { Redirect } from 'react-router-dom';
+
 import styled from 'styled-components';
 
 import Fingerprint2 from 'fingerprintjs2';
@@ -54,7 +56,9 @@ export class SessionPage extends React.PureComponent {
     const { loading, error, vote, session } = this.props;
     let content;
     if (loading) content = <LoadingIndicator />;
-    else if (error) {
+    else if (error.session) {
+      content = <Redirect to="/" />;
+    } else if (error.vote) {
       content = <div>{error.message ? error.message : 'Ошибка'}</div>;
     } else if (session) {
       content = (

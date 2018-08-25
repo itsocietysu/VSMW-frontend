@@ -19,7 +19,7 @@ import {
 
 export const initialState = fromJS({
   loading: false,
-  error: false,
+  error: { session: false, vote: false },
   session: false,
   sessionID: 0,
   vote: {
@@ -35,17 +35,19 @@ function voteReducer(state = initialState, action) {
     case GET_SESSION:
       return state
         .set('loading', true)
-        .set('error', false)
+        .setIn(['error', 'session'], false)
         .set('session', false)
         .set('sessionID', action.sessionID);
     case GET_SESSION_SUCCESS:
       return state.set('loading', false).set('session', action.session);
     case GET_SESSION_ERROR:
-      return state.set('error', action.error).set('loading', false);
+      return state
+        .setIn(['error', 'session'], action.error)
+        .set('loading', false);
     case GET_VOTE:
       return state
         .set('loading', true)
-        .set('error', false)
+        .setIn(['error', 'vote'], false)
         .set(
           'vote',
           fromJS({
@@ -57,16 +59,16 @@ function voteReducer(state = initialState, action) {
     case GET_VOTE_SUCCESS:
       return state.set('loading', false).set('vote', fromJS(action.vote));
     case GET_VOTE_ERROR:
-      return state.set('error', action.error).set('loading', false);
+      return state.setIn(['error', 'vote'], action.error).set('loading', false);
     case SEND_VOTE:
       return state
         .setIn(['vote', 'value'], action.vote)
         .set('loading', true)
-        .set('error', false);
+        .setIn(['error', 'vote'], false);
     case SEND_VOTE_SUCCESS:
       return state.set('loading', false);
     case SEND_VOTE_ERROR:
-      return state.set('error', action.error).set('loading', false);
+      return state.setIn(['error', 'vote'], action.error).set('loading', false);
     default:
       return state;
   }
