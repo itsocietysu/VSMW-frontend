@@ -4,7 +4,7 @@ const StyledButton = styled.button`
   padding: 0.25em 0.5em;
   margin: 0;
   text-decoration: none;
-  cursor: pointer;
+  cursor: default;
   outline: 0;
   font-family: 'Arial Black', serif;
   font-weight: bold;
@@ -14,6 +14,7 @@ const StyledButton = styled.button`
     `
   color: black;
   background: white;
+  cursor: pointer;
 
   &:hover {
     background: ${props.color};

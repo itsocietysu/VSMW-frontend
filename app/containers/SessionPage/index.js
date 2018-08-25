@@ -55,7 +55,7 @@ export class SessionPage extends React.PureComponent {
     let content;
     if (loading) content = <LoadingIndicator />;
     else if (error) {
-      content = <div>Ошибка</div>;
+      content = <div>{error.message ? error.message : 'Ошибка'}</div>;
     } else if (session) {
       content = (
         <Component image={`http://${session.image}`}>

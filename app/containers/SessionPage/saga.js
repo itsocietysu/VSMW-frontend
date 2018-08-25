@@ -67,6 +67,7 @@ export function* sendVote() {
   try {
     const vote = yield call(request, requestURL, options);
     yield put(voteSent());
+    vote[0].value = Number(vote[0].value);
     yield put(voteGot(vote[0]));
   } catch (err) {
     yield put(voteSendingError(err));
