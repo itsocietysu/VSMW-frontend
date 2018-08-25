@@ -2,31 +2,33 @@ import styled from 'styled-components';
 
 const StyledButton = styled.button`
   padding: 0.25em 0.5em;
-  margin: 0;
+  margin: 10px;
   text-decoration: none;
   cursor: default;
   outline: 0;
   font-family: 'Arial Black', serif;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: 5px ${props => props.color} dashed;
   ${props =>
     props.active &&
     `
-  color: black;
+  color: ${props.color};
   background: white;
   cursor: pointer;
 
   &:hover {
     background: ${props.color};
-    color: #fff;
+    color: white;
   } `};
   ${props =>
     props.clicked
       ? `
   background: ${props.color};
-    color: #fff;
+    color: white;
   `
-      : `color: black;
+      : `color: ${props.color};
   background: white;`};
 `;
 

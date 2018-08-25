@@ -1,20 +1,27 @@
 .title {
-  font-size: 4em;
-  text-align: center;
+  font-size: 3em;
   color: #28385B;
+  max-width: 300px;
+  margin: 0 auto;
 }
 
-.button {
+.buttonText {
   font-size: 4em;
-  text-align: center;
-  color: black;
 }
 
 .flex {
-  text-align: center;
+  right: 0;
+  bottom: 10vh;
+  left: 0;
+  margin: auto;
+  position: absolute;
 }
 
 .rc-slider {
   max-width: 250px;
+  right: 0;
+  bottom: 10vh;
+  left: 0;
   margin: auto;
+  position: absolute;
 }

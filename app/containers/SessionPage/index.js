@@ -38,8 +38,10 @@ import './session.css';
 
 const Component = styled.div`
   width: 100%;
-  overflow: hidden;
   height: 100vh;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
   background: url(${props => props.image}) no-repeat 50% / contain;
 `;
 
@@ -80,7 +82,7 @@ export class SessionPage extends React.PureComponent {
                 }}
                 active={vote.value === -1}
                 clicked={vote.value === 100}
-                children={<h1 className="button">Да</h1>}
+                children={<h1 className="buttonText">Да</h1>}
               />
               <Button
                 color="#BD2B2C"
@@ -89,7 +91,7 @@ export class SessionPage extends React.PureComponent {
                 }}
                 active={vote.value === -1}
                 clicked={vote.value === 0}
-                children={<h1 className="button">Нет</h1>}
+                children={<h1 className="buttonText">Нет</h1>}
               />
             </div>
           )}
