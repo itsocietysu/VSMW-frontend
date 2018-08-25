@@ -13,7 +13,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { Redirect } from 'react-router-dom';
 
-// import styled from 'styled-components';
+import styled from 'styled-components';
 
 import LoadingIndicator from '../../components/LoadingIndicator';
 import injectReducer from '../../utils/injectReducer';
@@ -28,6 +28,14 @@ import reducer from './reducer';
 import saga from './saga';
 
 import './view.css';
+
+const Slider = styled.div`
+  height: ${props => `${props.value * 2}px`};
+  background-color: ${props => props.color};
+  position: absolute;
+  bottom: 0;
+  width: inherit;
+`;
 
 /* eslint-disable react/prefer-stateless-function */
 export class ViewPage extends React.PureComponent {
@@ -60,9 +68,19 @@ export class ViewPage extends React.PureComponent {
             </div>
           )}
           {session.type === 'poll' && (
-            <div>
-              <h1 className="yes">{`Да: ${session.stats[0]}`}</h1>
-              <h1 className="no">{`Нет: ${session.stats[1]}`}</h1>
+            <div className="flex">
+              <div className="column yes">
+                <div className="block">
+                  <Slider value={session.stats[0]} color="#28385B" />
+                </div>
+                <h1>Да</h1>
+              </div>
+              <div className="column no">
+                <div className="block">
+                  <Slider value={session.stats[1]} color="#BD2B2C" />
+                </div>
+                <h1>Нет</h1>
+              </div>
             </div>
           )}
           <img
