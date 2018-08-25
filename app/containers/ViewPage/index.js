@@ -110,7 +110,7 @@ export class ViewPage extends React.PureComponent {
           <img className="img-right" src="/logo-dark.svg" alt="ITS" />
         </div>
       );
-    } else content = null;
+    } else content = <LoadingIndicator />;
     return (
       <article>
         <Helmet>

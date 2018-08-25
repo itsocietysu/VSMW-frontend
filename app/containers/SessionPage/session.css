@@ -1,8 +1,8 @@
 .title {
   font-size: 3em;
   color: #28385B;
-  max-width: 300px;
-  margin: 0 auto;
+  max-width: 500px;
+  margin: 10vh auto 0;
 }
 
 .buttonText {
@@ -18,10 +18,30 @@
 }
 
 .rc-slider {
-  max-width: 250px;
+  max-width: 500px;
   right: 0;
-  bottom: 10vh;
+  bottom: 20vh;
   left: 0;
   margin: auto;
   position: absolute;
+}
+
+@media screen and (max-width: 600px) {
+  .title {
+    max-width: 400px;
+  }
+
+  .rc-slider {
+    max-width: 400px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .title {
+    max-width: 300px;
+  }
+
+  .rc-slider {
+    max-width: 250px;
+  }
 }

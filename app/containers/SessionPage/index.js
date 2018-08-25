@@ -100,7 +100,7 @@ export class SessionPage extends React.PureComponent {
           )}
         </Component>
       );
-    } else content = null;
+    } else content = <LoadingIndicator />;
     return (
       <article>
         <Helmet>
