@@ -11,7 +11,7 @@ const makeSelectLoading = () =>
   createSelector(selectVote, voteState => voteState.get('loading'));
 
 const makeSelectError = () =>
-  createSelector(selectVote, voteState => voteState.get('error').toJS());
+  createSelector(selectVote, voteState => voteState.get('error'));
 
 const makeSelectSessionID = () =>
   createSelector(selectVote, voteState => voteState.get('sessionID'));

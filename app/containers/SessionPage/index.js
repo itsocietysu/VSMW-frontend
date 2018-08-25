@@ -58,10 +58,9 @@ export class SessionPage extends React.PureComponent {
     const { loading, error, vote, session } = this.props;
     let content;
     if (loading) content = <LoadingIndicator />;
-    else if (error.session) {
-      content = <Redirect to="/" />;
-    } else if (error.vote) {
-      content = <div>{error.message}</div>;
+    else if (error) {
+      if (error.message === 'No session') content = <Redirect to="/" />;
+      else content = <div>{error.message}</div>;
     } else if (session) {
       content = (
         <Component image={`http://${session.image}`}>
