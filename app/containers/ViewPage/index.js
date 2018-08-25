@@ -30,11 +30,21 @@ import saga from './saga';
 import './view.css';
 
 const Slider = styled.div`
-  height: ${props => `${props.value * 2}px`};
+  height: ${props => `${props.value * 6}px`};
   background-color: ${props => props.color};
   position: absolute;
   bottom: 0;
   width: inherit;
+`;
+
+const Circle = styled.div`
+  width: 300px;
+  height: 300px;
+  text-align: center;
+  border: 2px ${props => props.color} dotted;
+  border-radius: 100%;
+  line-height: 300px;
+  margin-top: 150px;
 `;
 
 /* eslint-disable react/prefer-stateless-function */
@@ -59,21 +69,21 @@ export class ViewPage extends React.PureComponent {
       else content = <div>{error.message}</div>;
     } else if (session) {
       content = (
-        <div className="Component">
-          <h1 className="yes">{session.title}</h1>
+        <div className="component">
+          <h1 className="title yes">{session.title}</h1>
           {session.type === 'slider' && (
-            <div>
-              <h1 className="yes">{`Average: ${session.stats[0]}`}</h1>
-              <h1 className="yes">{`Count: ${session.stats[1]}`}</h1>
+            <div className="flex">
+              <Circle color="#BD2B2C">
+                <h1 className="no">{`${session.stats[0]}%`}</h1>
+              </Circle>
             </div>
           )}
           {session.type === 'poll' && (
             <div className="flex">
-              <div className="column yes">
-                <div className="block">
-                  <Slider value={session.stats[0]} color="#28385B" />
-                </div>
-                <h1>Да</h1>
+              <div>
+                <Circle color="#BD2B2C">
+                  <h1 className="no">{`${session.stats[1]}%`}</h1>
+                </Circle>
               </div>
               <div className="column no">
                 <div className="block">
@@ -81,6 +91,15 @@ export class ViewPage extends React.PureComponent {
                 </div>
                 <h1>Нет</h1>
               </div>
+              <div className="column yes">
+                <div className="block">
+                  <Slider value={session.stats[0]} color="#28385B" />
+                </div>
+                <h1>Да</h1>
+              </div>
+              <Circle color="#28385B">
+                <h1 className="yes">{`${session.stats[0]}%`}</h1>
+              </Circle>
             </div>
           )}
           <img
