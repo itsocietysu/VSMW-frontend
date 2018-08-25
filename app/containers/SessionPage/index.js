@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unused-prop-types,react/no-children-prop,no-unused-expressions */
+/* eslint-disable react/no-children-prop,no-unused-expressions */
 /*
  * SessionPage
  *
@@ -59,7 +59,7 @@ export class SessionPage extends React.PureComponent {
     else if (error.session) {
       content = <Redirect to="/" />;
     } else if (error.vote) {
-      content = <div>{error.message ? error.message : 'Ошибка'}</div>;
+      content = <div>{error.message}</div>;
     } else if (session) {
       content = (
         <Component image={`http://${session.image}`}>
@@ -121,7 +121,6 @@ SessionPage.propTypes = {
   sendVote: PropTypes.func,
   createID: PropTypes.func,
   match: PropTypes.object,
-  history: PropTypes.object,
 };
 
 export function mapDispatchToProps(dispatch) {
