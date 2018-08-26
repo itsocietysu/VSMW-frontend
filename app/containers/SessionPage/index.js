@@ -98,7 +98,7 @@ export class SessionPage extends React.PureComponent {
                 }}
                 active={vote.value === -1}
                 clicked={vote.value === 100}
-                children={<h1 className="buttonText">Да</h1>}
+                children={<h1 className="buttonText">ДА</h1>}
               />
               <Button
                 color="#BD2B2C"
@@ -107,7 +107,7 @@ export class SessionPage extends React.PureComponent {
                 }}
                 active={vote.value === -1}
                 clicked={vote.value === 0}
-                children={<h1 className="buttonText">Нет</h1>}
+                children={<h1 className="buttonText">НЕТ</h1>}
               />
             </div>
           )}
