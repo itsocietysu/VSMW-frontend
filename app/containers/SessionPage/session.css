@@ -3,6 +3,7 @@
   color: #28385B;
   max-width: 500px;
   margin: 6vh auto 0;
+  line-height: 5vh;
 }
 
 .buttonText {
@@ -18,7 +19,7 @@
 }
 
 .rc-slider {
-  max-width: 450px;
+  width: 450px;
   right: 0;
   bottom: 20vh;
   left: 0;
@@ -32,14 +33,18 @@
   margin: auto;
   position: absolute;
   color: #28385B;
+  border-radius: 15px;
+  background-color: white;
 }
 
 .p.slider {
   bottom: 25vh;
+  width: 450px;
 }
 
 .p.poll {
   bottom: calc(10vh + 185px);
+  width: 300px;
 }
 
 @media screen and (max-width: 600px) {
@@ -48,18 +53,30 @@
   }
 
   .rc-slider {
-    max-width: 400px;
+    width: 400px;
+  }
+
+  .p.slider {
+    width: 400px;
   }
 }
 
 @media screen and (max-width: 500px) {
   .rc-slider {
-    max-width: 250px;
+    width: 250px;
+  }
+
+  .p.slider {
+    width: 250px;
   }
 }
 
 @media screen and (max-width: 400px) {
   .rc-slider {
-    max-width: 200px;
+    width: 200px;
+  }
+
+  .p.slider {
+    width: 200px;
   }
 }
