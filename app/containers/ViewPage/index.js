@@ -11,18 +11,12 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { Redirect } from 'react-router-dom';
-
 import styled from 'styled-components';
 
 import LoadingIndicator from '../../components/LoadingIndicator';
 import injectReducer from '../../utils/injectReducer';
 import injectSaga from '../../utils/injectSaga';
-import {
-  makeSelectError,
-  makeSelectLoading,
-  makeSelectSession,
-} from './selectors';
+import { makeSelectLoading, makeSelectSession } from './selectors';
 import { getSession } from './actions';
 import reducer from './reducer';
 import saga from './saga';
@@ -61,12 +55,10 @@ export class ViewPage extends React.PureComponent {
     clearInterval(this.state.func);
   }
   render() {
-    const { loading, error, session } = this.props;
+    const { loading, session } = this.props;
     let content;
     if (loading && !session) content = <LoadingIndicator />;
-    else if (error) {
-      content = <Redirect to="/" />;
-    } else if (session) {
+    else if (session) {
       content = (
         <div className="component">
           <h1 className="title yes">{session.title}</h1>
@@ -88,13 +80,13 @@ export class ViewPage extends React.PureComponent {
                 <div className="block">
                   <Slider value={session.stats[1]} color="#BD2B2C" />
                 </div>
-                <h1>Нет</h1>
+                <h1>НЕТ</h1>
               </div>
               <div className="column yes">
                 <div className="block">
                   <Slider value={session.stats[0]} color="#28385B" />
                 </div>
-                <h1>Да</h1>
+                <h1>ДА</h1>
               </div>
               <Circle color="#28385B">
                 <h1 className="yes">{`${session.stats[0]}%`}</h1>
@@ -127,7 +119,6 @@ export class ViewPage extends React.PureComponent {
 
 ViewPage.propTypes = {
   loading: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   session: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   initSession: PropTypes.func,
   match: PropTypes.object,
@@ -141,7 +132,6 @@ export function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectLoading(),
-  error: makeSelectError(),
   session: makeSelectSession(),
 });
 

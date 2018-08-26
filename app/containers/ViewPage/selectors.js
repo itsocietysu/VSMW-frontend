@@ -10,9 +10,6 @@ const selectStats = state => state.get('stats', initialState);
 const makeSelectLoading = () =>
   createSelector(selectStats, statsState => statsState.get('loading'));
 
-const makeSelectError = () =>
-  createSelector(selectStats, statsState => statsState.get('error'));
-
 const makeSelectSessionID = () =>
   createSelector(selectStats, statsState => statsState.get('sessionID'));
 
@@ -22,7 +19,6 @@ const makeSelectSession = () =>
 export {
   selectStats,
   makeSelectLoading,
-  makeSelectError,
   makeSelectSessionID,
   makeSelectSession,
 };
