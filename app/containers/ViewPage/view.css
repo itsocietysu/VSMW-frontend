@@ -8,10 +8,12 @@
 h1 {
   font-size: 6vh;
   margin: 0;
+  font-family: "Arial Black", Gadget, sans-serif;
 }
 
 .title {
-  margin-top: 20px;
+  margin-top: 10px;
+  line-height: 6vh;
 }
 
 .block {

@@ -4,10 +4,12 @@
   max-width: 500px;
   margin: 6vh auto 0;
   line-height: 5vh;
+  font-family: "Arial Black", Gadget, sans-serif;
 }
 
 .buttonText {
   font-size: 4em;
+  font-family: "Arial Black", Gadget, sans-serif;
 }
 
 .flex {
@@ -35,6 +37,7 @@
   color: #28385B;
   border-radius: 15px;
   background-color: white;
+  font-family: "Arial Black", Gadget, sans-serif;
 }
 
 .p.slider {

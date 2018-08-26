@@ -6,7 +6,7 @@ const StyledButton = styled.button`
   text-decoration: none;
   cursor: default;
   outline: 0;
-  font-family: 'Arial Black', serif;
+  font-family: 'Arial Black', Gadget, sans-serif;
   font-weight: bold;
   font-size: 14px;
   border-radius: 10px;
