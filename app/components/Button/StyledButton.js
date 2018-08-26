@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
-  padding: 0.25em 0.5em;
+  padding: 0.25em;
   margin: 10px;
   text-decoration: none;
   cursor: default;
@@ -10,7 +10,7 @@ const StyledButton = styled.button`
   font-weight: bold;
   font-size: 14px;
   border-radius: 10px;
-  width: 140px;
+  width: 145px;
   ${props =>
     props.active &&
     `

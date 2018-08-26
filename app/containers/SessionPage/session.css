@@ -44,7 +44,7 @@
 
 .p.poll {
   bottom: calc(10vh + 185px);
-  width: 300px;
+  width: 310px;
 }
 
 @media screen and (max-width: 600px) {
