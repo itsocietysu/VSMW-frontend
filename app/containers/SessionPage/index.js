@@ -51,12 +51,23 @@ const Component = styled.div`
 
 /* eslint-disable react/prefer-stateless-function */
 export class SessionPage extends React.PureComponent {
-  componentDidMount() {
-    this.props.initSession(this.props.match.params.id);
+  constructor(props) {
+    super(props);
+    this.state = {
+      func: null,
+    };
   }
-  componentDidUpdate() {
+  componentDidMount() {
+    this.state = {
+      func: setInterval(() => {
+        if (getUniqID() && this.props.vote.fingerprint !== getUniqID())
+          this.props.initVote();
+        if (getUniqID() && this.props.vote.fingerprint === getUniqID())
+          clearInterval(this.state.func);
+      }, 500),
+    };
     if (!getUniqID()) this.props.createID();
-    else if (this.props.vote.fingerprint !== getUniqID()) this.props.initVote();
+    this.props.initSession(this.props.match.params.id);
   }
   render() {
     const { loading, error, vote, session } = this.props;
@@ -64,7 +75,7 @@ export class SessionPage extends React.PureComponent {
     if (loading) content = <LoadingIndicator />;
     else if (error) {
       content = <Redirect to="/" />;
-    } else if (session) {
+    } else if (session && vote.fingerprint) {
       content = (
         <Component image={`http://${session.image}`}>
           <h1 className="title">{session.title}</h1>

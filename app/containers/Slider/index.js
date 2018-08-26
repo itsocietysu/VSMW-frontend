@@ -19,7 +19,7 @@ import { makeSelectValue } from './selectors';
 import reducer from './reducer';
 
 class CustomizedSlider extends React.Component {
-  componentDidUpdate() {
+  componentDidMount() {
     if (this.props.defaultValue && this.props.value !== this.props.defaultValue)
       this.props.onChangeValue(this.props.defaultValue);
   }
