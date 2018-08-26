@@ -26,8 +26,23 @@ import saga from './saga';
 
 /* eslint-disable react/prefer-stateless-function */
 export class RedirectPage extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      func: null,
+    };
+  }
   componentDidMount() {
     this.props.init();
+  }
+  componentDidUpdate() {
+    if (this.props.error)
+      this.state = {
+        func: setTimeout(() => {
+          this.props.init();
+          clearTimeout(this.state.func);
+        }, 1200),
+      };
   }
   render() {
     const { loading, error, session } = this.props;
@@ -35,7 +50,6 @@ export class RedirectPage extends React.PureComponent {
     if (loading) content = <LoadingIndicator />;
     else if (error) {
       content = <LoadingIndicator />;
-      this.props.init();
     } else if (session) content = <Redirect to={`/session/${session}`} />;
     else content = null;
     return (
