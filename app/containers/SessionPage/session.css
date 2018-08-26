@@ -1,8 +1,8 @@
 .title {
-  font-size: 3em;
+  font-size: 5vh;
   color: #28385B;
   max-width: 500px;
-  margin: 10vh auto 0;
+  margin: 6vh auto 0;
 }
 
 .buttonText {
@@ -26,9 +26,25 @@
   position: absolute;
 }
 
+.p {
+  right: 0;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  color: #28385B;
+}
+
+.p.slider {
+  bottom: 25vh;
+}
+
+.p.poll {
+  bottom: calc(10vh + 185px);
+}
+
 @media screen and (max-width: 600px) {
   .title {
-    max-width: 400px;
+    max-width: inherit;
   }
 
   .rc-slider {
@@ -37,11 +53,13 @@
 }
 
 @media screen and (max-width: 500px) {
-  .title {
-    max-width: 300px;
-  }
-
   .rc-slider {
     max-width: 250px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .rc-slider {
+    max-width: 200px;
   }
 }

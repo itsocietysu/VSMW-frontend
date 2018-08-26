@@ -79,6 +79,9 @@ export class SessionPage extends React.PureComponent {
       content = (
         <Component image={`http://${session.image}`}>
           <h1 className="title">{session.title}</h1>
+          {vote.value !== -1 && (
+            <p className={`p ${session.type}`}>ВАШ ГОЛОС УЧТЕН :)</p>
+          )}
           {session.type === 'slider' && (
             <Slider
               disabled={vote.value !== -1}
