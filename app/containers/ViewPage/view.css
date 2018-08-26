@@ -43,13 +43,42 @@ h1 {
   position: absolute;
   left: 50px;
   bottom: 30px;
-  vertical-align: bottom;
+  width: 310px;
+  height: auto;
 }
 
 .img-right {
   position: absolute;
   right: 50px;
   bottom: 30px;
-  width: 250px;
+  width: 207px;
   height: auto;
+}
+
+@media screen and (max-width: 1280px) and (max-height: 1024px) {
+  h1 {
+    font-size: 3em;
+  }
+
+  .block {
+    width: 150px;
+    height: 400px;
+    position: relative;
+  }
+
+  .column {
+    margin: 12px 25px;
+  }
+
+  .img-left {
+    left: 25px;
+    bottom: 15px;
+    width: 250px;
+  }
+
+  .img-right {
+    right: 25px;
+    bottom: 15px;
+    width: 167px;
+  }
 }

@@ -35,6 +35,10 @@ const Slider = styled.div`
   position: absolute;
   bottom: 0;
   width: inherit;
+
+  @media screen and (max-width: 1280px) and (max-height: 1024px) {
+    height: ${props => `${props.value * 4}px`};
+  }
 `;
 
 const Circle = styled.div`
@@ -45,6 +49,13 @@ const Circle = styled.div`
   border-radius: 100%;
   line-height: 300px;
   margin-top: 150px;
+
+  @media screen and (max-width: 1280px) and (max-height: 1024px) {
+    width: 150px;
+    height: 150px;
+    line-height: 150px;
+    margin-top: 125px;
+  }
 `;
 
 /* eslint-disable react/prefer-stateless-function */
