@@ -11,12 +11,18 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import { Redirect } from 'react-router-dom';
+
 import styled from 'styled-components';
 
 import LoadingIndicator from '../../components/LoadingIndicator';
 import injectReducer from '../../utils/injectReducer';
 import injectSaga from '../../utils/injectSaga';
-import { makeSelectLoading, makeSelectSession } from './selectors';
+import {
+  makeSelectError,
+  makeSelectLoading,
+  makeSelectSession,
+} from './selectors';
 import { getSession } from './actions';
 import reducer from './reducer';
 import saga from './saga';
@@ -55,9 +61,10 @@ export class ViewPage extends React.PureComponent {
     clearInterval(this.state.func);
   }
   render() {
-    const { loading, session } = this.props;
+    const { loading, error, session } = this.props;
     let content;
-    if (loading && !session) content = <LoadingIndicator />;
+    if (error && error.message === 'No session') content = <Redirect to="/" />;
+    else if (loading && !session) content = <LoadingIndicator />;
     else if (session) {
       content = (
         <div className="component">
@@ -119,6 +126,7 @@ export class ViewPage extends React.PureComponent {
 
 ViewPage.propTypes = {
   loading: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   session: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   initSession: PropTypes.func,
   match: PropTypes.object,
@@ -133,6 +141,7 @@ export function mapDispatchToProps(dispatch) {
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectLoading(),
   session: makeSelectSession(),
+  error: makeSelectError(),
 });
 
 const withConnect = connect(
