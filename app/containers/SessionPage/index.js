@@ -87,7 +87,8 @@ export class SessionPage extends React.PureComponent {
   render() {
     const { loading, error, vote, session } = this.props;
     let content;
-    if (loading) content = <LoadingIndicator />;
+    if (loading && !session && !vote.fingerprint)
+      content = <LoadingIndicator />;
     else if (error) {
       content = <Redirect to="/" />;
     } else if (session && vote.fingerprint) {

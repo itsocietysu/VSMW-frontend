@@ -66,10 +66,8 @@ export function* sendVote() {
   };
   const requestURL = `http://89.108.103.193:4200/vsmw/vote`;
   try {
-    const vote = yield call(request, requestURL, options);
+    yield call(request, requestURL, options);
     yield put(voteSent());
-    vote[0].value = Number(vote[0].value);
-    yield put(voteGot(vote[0]));
   } catch (err) {
     yield put(voteSendingError(err));
   }
