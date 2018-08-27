@@ -34,6 +34,11 @@ const StyledButton = styled.button`
       : `color: ${props.color};
   background: white;
   border: 5px ${props.color} solid;`};
+
+  @media screen and (max-width: 350px) {
+    width: 140px;
+    padding: 0.1em;
+  }
 `;
 
 export default StyledButton;
