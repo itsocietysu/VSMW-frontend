@@ -1,4 +1,4 @@
-/* eslint-disable react/no-children-prop,no-unused-expressions */
+/* eslint-disable react/no-children-prop,no-unused-expressions,react/no-did-mount-set-state */
 /*
  * SessionPage
  *
@@ -54,20 +54,35 @@ export class SessionPage extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      func: null,
+      func: false,
     };
   }
   componentDidMount() {
-    this.state = {
-      func: setInterval(() => {
-        if (getUniqID() && this.props.vote.fingerprint !== getUniqID())
-          this.props.initVote();
-        if (getUniqID() && this.props.vote.fingerprint === getUniqID())
-          clearInterval(this.state.func);
-      }, 500),
-    };
     if (!getUniqID()) this.props.createID();
     this.props.initSession(this.props.match.params.id);
+    this.setState({
+      func: setInterval(() => {
+        if (
+          getUniqID() &&
+          this.props.vote.fingerprint !== getUniqID() &&
+          !this.props.error
+        )
+          this.props.initVote();
+      }, 500),
+    });
+  }
+  componentWillUnmount() {
+    if (this.state.func) clearInterval(this.state.func);
+  }
+  componentDidUpdate() {
+    if (
+      getUniqID() &&
+      this.props.vote.fingerprint === getUniqID() &&
+      this.state.func
+    ) {
+      clearInterval(this.state.func);
+      this.state.func = false;
+    }
   }
   render() {
     const { loading, error, vote, session } = this.props;
