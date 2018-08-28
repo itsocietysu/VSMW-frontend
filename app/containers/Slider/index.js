@@ -18,12 +18,16 @@ import { changeValue } from './actions';
 import { makeSelectValue } from './selectors';
 import reducer from './reducer';
 
+export const Image = (src, num, width) => (
+  <img src={src} alt={`${num}`} style={{ maxWidth: width }} />
+);
+
 const marks = {
-  0: <img src="/icon-50x50.jpg" alt="?" />,
-  25: <img src="/icon-50x50.jpg" alt="?" />,
-  50: <img src="/icon-50x50.jpg" alt="?" />,
-  75: <img src="/icon-50x50.jpg" alt="?" />,
-  100: <img src="/icon-50x50.jpg" alt="?" />,
+  0: Image('/0-100x100.png', 0, '50px'),
+  25: Image('/25-100x100.png', 25, '50px'),
+  50: Image('/50-100x100.png', 50, '50px'),
+  75: Image('/75-100x100.png', 75, '50px'),
+  100: Image('/100-100x100.png', 100, '50px'),
 };
 
 class CustomizedSlider extends React.Component {
@@ -58,7 +62,7 @@ class CustomizedSlider extends React.Component {
             height: 56,
             width: 56,
             marginLeft: -28,
-            marginTop: -24,
+            marginTop: -40,
             backgroundColor: 'white',
           },
         ]}

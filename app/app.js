@@ -24,6 +24,11 @@ import '!file-loader?name=[name].[ext]!./images/favicon.ico';
 import 'file-loader?name=[name].[ext]!./.htaccess'; // eslint-disable-line import/extensions
 
 import '!file-loader?name=[name].[ext]!./images/icon-50x50.jpg';
+import '!file-loader?name=[name].[ext]!./images/0-100x100.png';
+import '!file-loader?name=[name].[ext]!./images/25-100x100.png';
+import '!file-loader?name=[name].[ext]!./images/50-100x100.png';
+import '!file-loader?name=[name].[ext]!./images/75-100x100.png';
+import '!file-loader?name=[name].[ext]!./images/100-100x100.png';
 import '!file-loader?name=[name].[ext]!./images/logo_vsmysle_2018.svg';
 import '!file-loader?name=[name].[ext]!./images/logo-dark.svg';
 
