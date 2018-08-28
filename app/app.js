@@ -29,6 +29,11 @@ import '!file-loader?name=[name].[ext]!./images/25-100x100.png';
 import '!file-loader?name=[name].[ext]!./images/50-100x100.png';
 import '!file-loader?name=[name].[ext]!./images/75-100x100.png';
 import '!file-loader?name=[name].[ext]!./images/100-100x100.png';
+import '!file-loader?name=[name].[ext]!./images/0-256x256.png';
+import '!file-loader?name=[name].[ext]!./images/25-256x256.png';
+import '!file-loader?name=[name].[ext]!./images/50-256x256.png';
+import '!file-loader?name=[name].[ext]!./images/75-256x256.png';
+import '!file-loader?name=[name].[ext]!./images/100-256x256.png';
 import '!file-loader?name=[name].[ext]!./images/logo_vsmysle_2018.svg';
 import '!file-loader?name=[name].[ext]!./images/logo-dark.svg';
 

@@ -16,6 +16,15 @@ h1 {
   line-height: 6vh;
 }
 
+.textSlider {
+  font-size: 3vw;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+}
+
 .block {
   height: 60vh;
   margin: 0 0 20px 0;
@@ -29,6 +38,7 @@ h1 {
 
 .block.slider {
   width: 8vw;
+  line-height: 60vh;
 }
 
 .column {

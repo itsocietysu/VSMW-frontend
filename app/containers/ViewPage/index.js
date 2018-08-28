@@ -33,7 +33,7 @@ import saga from './saga';
 import './view.css';
 
 const Slider = styled.div`
-  height: ${props => `calc(${props.value / 100}*60vh)`};
+  height: ${props => `${props.value}%`};
   background-color: ${props => props.color};
   position: absolute;
   bottom: 0;
@@ -65,6 +65,9 @@ function columns(values, names, classes, colors, view) {
             value={value}
             color={`${colors[index] ? colors[index] : colors[0]}`}
           />
+          {view === 'slider' && (
+            <h1 className="textSlider yes">{`${value}%`}</h1>
+          )}
         </div>
         {names[index]}
       </div>
@@ -97,29 +100,19 @@ export class ViewPage extends React.PureComponent {
           <h1 className="title yes">{session.title}</h1>
           {session.type === 'slider' && (
             <div className="flex">
-              <div>
-                <Circle color="#BD2B2C">
-                  <h1 className="no">{`${session.stats[0]}%`}</h1>
-                </Circle>
-              </div>
               {columns(
                 session.stats,
                 [
-                  Image('/0-100x100.png', 0, '100px'),
-                  Image('/25-100x100.png', 25, '100px'),
-                  Image('/50-100x100.png', 50, '100px'),
-                  Image('/75-100x100.png', 75, '100px'),
-                  Image('/100-100x100.png', 100, '100px'),
+                  Image('/0-256x256.png', 0, '6vw'),
+                  Image('/25-256x256.png', 25, '6vw'),
+                  Image('/50-256x256.png', 50, '6vw'),
+                  Image('/75-256x256.png', 75, '6vw'),
+                  Image('/100-256x256.png', 100, '6vw'),
                 ],
                 ['no'],
                 ['#BD2B2C'],
                 'slider',
               )}
-              <div>
-                <Circle color="#BD2B2C">
-                  <h1 className="no">{`${session.stats[4]}%`}</h1>
-                </Circle>
-              </div>
             </div>
           )}
           {session.type === 'poll' && (
