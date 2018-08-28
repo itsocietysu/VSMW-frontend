@@ -32,7 +32,19 @@ const marks = {
 
 class CustomizedSlider extends React.Component {
   componentDidMount() {
-    if (this.props.defaultValue && this.props.value !== this.props.defaultValue)
+    if (
+      this.props.defaultValue &&
+      this.props.disabled &&
+      this.props.value !== this.props.defaultValue
+    )
+      this.props.onChangeValue(this.props.defaultValue);
+  }
+  componentDidUpdate() {
+    if (
+      this.props.defaultValue &&
+      this.props.disabled &&
+      this.props.value !== this.props.defaultValue
+    )
       this.props.onChangeValue(this.props.defaultValue);
   }
   render() {
