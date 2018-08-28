@@ -1,5 +1,5 @@
 /*
- * RedirectPageReducer
+ * HomePageReducer
  */
 
 import { fromJS } from 'immutable';
@@ -19,10 +19,7 @@ export const initialState = fromJS({
 function sessionReducer(state = initialState, action) {
   switch (action.type) {
     case GET_SESSION:
-      return state
-        .set('loading', true)
-        .set('error', false)
-        .set('session', false);
+      return state.set('loading', true).set('error', false);
     case GET_SESSION_SUCCESS:
       return state.set('loading', false).set('session', action.session);
     case GET_SESSION_ERROR:

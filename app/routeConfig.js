@@ -1,6 +1,6 @@
 import React from 'react';
 
-import RedirectPage from 'containers/RedirectPage/Loadable';
+import HomePage from 'containers/HomePage/Loadable';
 import SessionPage from 'containers/SessionPage/Loadable';
 import ViewPage from 'containers/ViewPage/Loadable';
 
@@ -12,11 +12,11 @@ class Route {
   component: any;
 }
 
-const RedirectRoute = (() => {
+const HomeRoute = (() => {
   const r = new Route();
   r.path = '/';
   r.exact = true;
-  r.component = () => <RedirectPage />;
+  r.component = () => <HomePage />;
   return r;
 })();
 
@@ -45,7 +45,7 @@ const NotFoundRoute = (() => {
 })();
 
 const routes: Array<Route> = [
-  RedirectRoute,
+  HomeRoute,
   SessionRoute,
   ViewRoute,
   NotFoundRoute,

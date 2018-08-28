@@ -1,5 +1,5 @@
 /**
- * RedirectPage selectors
+ * HomePage selectors
  */
 
 import { createSelector } from 'reselect';

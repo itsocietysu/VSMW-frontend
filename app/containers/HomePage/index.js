@@ -1,5 +1,5 @@
 /*
- * RedirectPage
+ * HomePage
  *
  * This is the first thing users see of our App, at the '/' route
  */
@@ -10,7 +10,6 @@ import { Helmet } from 'react-helmet';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Redirect } from 'react-router-dom';
 
 import LoadingIndicator from '../../components/LoadingIndicator';
 import injectReducer from '../../utils/injectReducer';
@@ -24,41 +23,48 @@ import { getSession } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
+import SessionPage from '../SessionPage';
+
 /* eslint-disable react/prefer-stateless-function */
-export class RedirectPage extends React.PureComponent {
+export class HomePage extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      func: null,
+      func: false,
     };
   }
   componentDidMount() {
     this.props.init();
+    this.state = {
+      func: setInterval(() => {
+        this.props.init();
+      }, 2000),
+    };
   }
   componentDidUpdate() {
     if (this.props.error)
-      this.state = {
-        func: setTimeout(() => {
-          this.props.init();
-          clearTimeout(this.state.func);
-        }, 1200),
-      };
+      setTimeout(() => {
+        this.props.init();
+      }, 1200);
+  }
+  componentWillUnmount() {
+    if (this.state.func) clearInterval(this.state.func);
   }
   render() {
     const { loading, error, session } = this.props;
     let content;
-    if (loading) content = <LoadingIndicator />;
+    if (loading && !session) content = <LoadingIndicator />;
     else if (error) {
       content = <LoadingIndicator />;
-    } else if (session) content = <Redirect to={`/session/${session}`} />;
+    } else if (session) content = <SessionPage id={session} />;
     else content = null;
     return (
       <article>
         <Helmet>
-          <title>Redirect Page</title>
+          <title>Home Page</title>
           <meta
             name="description"
-            content="An VSMW application page for redirect"
+            content="An VSMW application page for vote"
           />
         </Helmet>
         {content}
@@ -67,7 +73,7 @@ export class RedirectPage extends React.PureComponent {
   }
 }
 
-RedirectPage.propTypes = {
+HomePage.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   session: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
@@ -98,4 +104,4 @@ export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(RedirectPage);
+)(HomePage);

@@ -1,5 +1,5 @@
 /*
- * RedirectPage Actions
+ * HomePage Actions
  */
 
 import {
