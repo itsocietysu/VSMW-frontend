@@ -41,7 +41,7 @@
 }
 
 .p.slider {
-  bottom: 25vh;
+  bottom: calc(20vh + 55px);
   width: 450px;
 }
 
