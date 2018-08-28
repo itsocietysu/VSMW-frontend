@@ -17,11 +17,18 @@ h1 {
 }
 
 .block {
-  width: 15vw;
   height: 60vh;
   margin: 0 0 20px 0;
   padding: 0;
   position: relative;
+}
+
+.block.poll {
+  width: 15vw;
+}
+
+.block.slider {
+  width: 8vw;
 }
 
 .column {

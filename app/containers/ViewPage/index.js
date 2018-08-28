@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /*
  * ViewPage
  *
@@ -14,6 +15,8 @@ import { createStructuredSelector } from 'reselect';
 import { Redirect } from 'react-router-dom';
 
 import styled from 'styled-components';
+
+import { Image } from '../Slider/index';
 
 import LoadingIndicator from '../../components/LoadingIndicator';
 import injectReducer from '../../utils/injectReducer';
@@ -47,6 +50,29 @@ const Circle = styled.div`
   margin-top: 20vh;
 `;
 
+function columns(values, names, classes, colors, view) {
+  const array = [];
+  values.forEach((value, index) => {
+    array[index] = (
+      <div
+        className={`column ${classes[index] ? classes[index] : classes[0]}`}
+        key={`column-${
+          classes[index] ? classes[index] : classes[0]
+        }-${value}-${index}`}
+      >
+        <div className={`block ${view}`}>
+          <Slider
+            value={value}
+            color={`${colors[index] ? colors[index] : colors[0]}`}
+          />
+        </div>
+        {names[index]}
+      </div>
+    );
+  });
+  return array;
+}
+
 /* eslint-disable react/prefer-stateless-function */
 export class ViewPage extends React.PureComponent {
   constructor(props) {
@@ -71,9 +97,29 @@ export class ViewPage extends React.PureComponent {
           <h1 className="title yes">{session.title}</h1>
           {session.type === 'slider' && (
             <div className="flex">
-              <Circle color="#BD2B2C">
-                <h1 className="no">{`${session.stats[0]}%`}</h1>
-              </Circle>
+              <div>
+                <Circle color="#BD2B2C">
+                  <h1 className="no">{`${session.stats[0]}%`}</h1>
+                </Circle>
+              </div>
+              {columns(
+                session.stats,
+                [
+                  Image('/0-100x100.png', 0, '100px'),
+                  Image('/25-100x100.png', 25, '100px'),
+                  Image('/50-100x100.png', 50, '100px'),
+                  Image('/75-100x100.png', 75, '100px'),
+                  Image('/100-100x100.png', 100, '100px'),
+                ],
+                ['no'],
+                ['#BD2B2C'],
+                'slider',
+              )}
+              <div>
+                <Circle color="#BD2B2C">
+                  <h1 className="no">{`${session.stats[4]}%`}</h1>
+                </Circle>
+              </div>
             </div>
           )}
           {session.type === 'poll' && (
@@ -83,21 +129,18 @@ export class ViewPage extends React.PureComponent {
                   <h1 className="no">{`${session.stats[1]}%`}</h1>
                 </Circle>
               </div>
-              <div className="column no">
-                <div className="block">
-                  <Slider value={session.stats[1]} color="#BD2B2C" />
-                </div>
-                <h1>НЕТ</h1>
+              {columns(
+                [session.stats[1], session.stats[0]],
+                [<h1>НЕТ</h1>, <h1>ДА</h1>],
+                ['no', 'yes'],
+                ['#BD2B2C', '#28385B'],
+                'poll',
+              )}
+              <div>
+                <Circle color="#28385B">
+                  <h1 className="yes">{`${session.stats[0]}%`}</h1>
+                </Circle>
               </div>
-              <div className="column yes">
-                <div className="block">
-                  <Slider value={session.stats[0]} color="#28385B" />
-                </div>
-                <h1>ДА</h1>
-              </div>
-              <Circle color="#28385B">
-                <h1 className="yes">{`${session.stats[0]}%`}</h1>
-              </Circle>
             </div>
           )}
           <img
