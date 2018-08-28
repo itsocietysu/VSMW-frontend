@@ -18,6 +18,14 @@ import { changeValue } from './actions';
 import { makeSelectValue } from './selectors';
 import reducer from './reducer';
 
+const marks = {
+  0: <img src="/icon-50x50.jpg" alt="?" />,
+  25: <img src="/icon-50x50.jpg" alt="?" />,
+  50: <img src="/icon-50x50.jpg" alt="?" />,
+  75: <img src="/icon-50x50.jpg" alt="?" />,
+  100: <img src="/icon-50x50.jpg" alt="?" />,
+};
+
 class CustomizedSlider extends React.Component {
   componentDidMount() {
     if (this.props.defaultValue && this.props.value !== this.props.defaultValue)
@@ -31,6 +39,8 @@ class CustomizedSlider extends React.Component {
         value={value}
         onChange={this.props.onChangeValue}
         onAfterChange={this.props.onAfterChange}
+        marks={marks}
+        step={null}
         trackStyle={{
           background: `linear-gradient(to right, white,
           rgb(
@@ -39,20 +49,20 @@ class CustomizedSlider extends React.Component {
             ${255 * (1 - percent)}
             )
           )`,
-          height: 15,
         }}
         handleStyle={[
           {
             borderColor: 'red',
             backgroundImage: 'url(/icon-50x50.jpg)',
+            backgroundSize: 'contain',
             height: 56,
             width: 56,
-            marginLeft: -14,
-            marginTop: -20,
+            marginLeft: -28,
+            marginTop: -24,
             backgroundColor: 'white',
           },
         ]}
-        railStyle={{ height: 15 }}
+        railStyle={{}}
         disabled={this.props.disabled}
       />
     );

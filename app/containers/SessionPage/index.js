@@ -2,7 +2,7 @@
 /*
  * SessionPage
  *
- * This is the page for session, at the '/session/:id' route
+ * This is the component/page for vote
  */
 
 import React from 'react';
@@ -58,40 +58,49 @@ export class SessionPage extends React.PureComponent {
     };
   }
   componentDidMount() {
-    if (!getUniqID()) this.props.createID();
-    this.props.initSession(this.props.match.params.id);
-    this.setState({
-      func: setInterval(() => {
-        if (
-          getUniqID() &&
-          this.props.vote.fingerprint !== getUniqID() &&
-          !this.props.error
-        )
-          this.props.initVote();
-      }, 500),
-    });
+    if (this.props.id) {
+      if (!getUniqID()) this.props.createID();
+      this.props.initSession(this.props.id);
+      this.setState({
+        func: setInterval(() => {
+          if (
+            getUniqID() &&
+            this.props.vote.fingerprint !== getUniqID() &&
+            !this.props.error
+          )
+            this.props.initVote();
+        }, 500),
+      });
+    } else if (this.props.match.params.id) {
+      this.props.initSession(this.props.match.params.id);
+    }
   }
   componentWillUnmount() {
     if (this.state.func) clearInterval(this.state.func);
   }
-  componentDidUpdate() {
-    if (
-      getUniqID() &&
-      this.props.vote.fingerprint === getUniqID() &&
-      this.state.func
-    ) {
-      clearInterval(this.state.func);
-      this.state.func = false;
+  componentDidUpdate(prevProps) {
+    if (this.props.id) {
+      if (prevProps.id !== this.props.id) {
+        this.componentDidMount();
+      }
+      if (
+        getUniqID() &&
+        this.props.vote.fingerprint === getUniqID() &&
+        this.state.func
+      ) {
+        clearInterval(this.state.func);
+        this.state.func = false;
+      }
     }
   }
   render() {
-    const { loading, error, vote, session } = this.props;
+    const { loading, error, vote, session, id } = this.props;
     let content;
     if (loading && !session && !vote.fingerprint)
       content = <LoadingIndicator />;
     else if (error) {
       content = <Redirect to="/" />;
-    } else if (session && vote.fingerprint) {
+    } else if (session && (id ? vote.fingerprint : true)) {
       content = (
         <Component image={`http://${session.image}`}>
           <h1 className="title">{session.title}</h1>
@@ -100,7 +109,7 @@ export class SessionPage extends React.PureComponent {
           )}
           {session.type === 'slider' && (
             <Slider
-              disabled={vote.value !== -1}
+              disabled={id ? vote.value !== -1 : true}
               defaultValue={vote.value === -1 ? 0 : vote.value}
               onAfterChange={value => this.props.sendVote(value)}
             />
@@ -110,18 +119,18 @@ export class SessionPage extends React.PureComponent {
               <Button
                 color="#28385B"
                 onClick={() => {
-                  this.props.sendVote(100);
+                  id && this.props.sendVote(100);
                 }}
-                active={vote.value === -1}
+                active={id ? vote.value === -1 : false}
                 clicked={vote.value === 100}
                 children={<h1 className="buttonText">ДА</h1>}
               />
               <Button
                 color="#BD2B2C"
                 onClick={() => {
-                  this.props.sendVote(0);
+                  id && this.props.sendVote(0);
                 }}
-                active={vote.value === -1}
+                active={id ? vote.value === -1 : false}
                 clicked={vote.value === 0}
                 children={<h1 className="buttonText">НЕТ</h1>}
               />
@@ -146,6 +155,7 @@ export class SessionPage extends React.PureComponent {
 }
 
 SessionPage.propTypes = {
+  id: PropTypes.number,
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   vote: PropTypes.object,
