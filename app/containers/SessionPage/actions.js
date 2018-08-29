@@ -19,7 +19,7 @@ import {
  *
  * @param  {number} sessionID The current session id
  *
- * @return {object} An action object with a type of GET_SESSION passing sessionID
+ * @return {object} An action object with a type of GET_SESSION passing the sessionID
  */
 export function getSession(sessionID) {
   return {
@@ -31,14 +31,11 @@ export function getSession(sessionID) {
 /**
  * Dispatched when session is got by the request saga
  *
- * @param  {object} session The current session
- *
- * @return {object} An action object with a type of GET_SESSION_SUCCESS passing session
+ * @return {object} An action object with a type of GET_SESSION_SUCCESS passing the session
  */
-export function sessionGot(session) {
+export function sessionGot() {
   return {
     type: GET_SESSION_SUCCESS,
-    session,
   };
 }
 
@@ -59,11 +56,14 @@ export function sessionGettingError(error) {
 /**
  * Get vote, this action starts the request saga
  *
- * @return {object} An action object with a type of GET_VOTE
+ * @param  {number} sessionID The current session id
+ *
+ * @return {object} An action object with a type of GET_VOTE passing the sessionID
  */
-export function getVote() {
+export function getVote(sessionID) {
   return {
     type: GET_VOTE,
+    sessionID,
   };
 }
 
@@ -72,7 +72,7 @@ export function getVote() {
  *
  * @param  {number} vote The current vote
  *
- * @return {object} An action object with a type of GET_VOTE_SUCCESS passing vote
+ * @return {object} An action object with a type of GET_VOTE_SUCCESS passing the vote
  */
 export function voteGot(vote) {
   return {
@@ -100,7 +100,7 @@ export function voteGettingError(error) {
  *
  * @param  {number} vote The current vote
  *
- * @return {object} An action object with a type of SEND_VOTE passing vote
+ * @return {object} An action object with a type of SEND_VOTE passing the vote
  */
 export function sendVote(vote) {
   return {

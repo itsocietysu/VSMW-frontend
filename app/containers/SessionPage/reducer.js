@@ -20,7 +20,6 @@ import {
 export const initialState = fromJS({
   loading: false,
   error: false,
-  session: false,
   sessionID: 0,
   vote: {
     session: '',
@@ -38,17 +37,18 @@ function voteReducer(state = initialState, action) {
         .set('session', false)
         .set('sessionID', action.sessionID);
     case GET_SESSION_SUCCESS:
-      return state.set('loading', false).set('session', action.session);
+      return state.set('loading', false);
     case GET_SESSION_ERROR:
       return state.set('error', action.error).set('loading', false);
     case GET_VOTE:
       return state
         .set('loading', true)
         .set('error', false)
+        .set('sessionID', action.sessionID)
         .set(
           'vote',
           fromJS({
-            session: state.get('sessionID'),
+            session: action.sessionID,
             fingerprint: getUniqID(),
             value: -1,
           }),

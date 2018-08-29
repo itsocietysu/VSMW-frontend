@@ -8,10 +8,11 @@ import request from '../../utils/request';
  * Current session get handler
  */
 export function* getSession() {
-  const requestURL = 'http://89.108.103.193:4200/vsmw/current';
+  const requestURL = 'http://89.108.103.193:4200/vsmw/current_object';
   try {
-    const session = yield call(request, requestURL);
-    yield put(sessionGot(session[0]));
+    const session = (yield call(request, requestURL))[0];
+    session.vid = Number(session.vid);
+    yield put(sessionGot(session));
   } catch (err) {
     yield put(sessionGettingError(err));
   }

@@ -8,6 +8,7 @@ import {
   voteSent,
   voteSendingError,
 } from './actions';
+import { sessionGot as HomeSessionGot } from '../HomePage/actions';
 
 import { makeSelectSessionID, makeSelectVote } from './selectors';
 
@@ -22,9 +23,11 @@ export function* getSession() {
   const sessionID = yield select(makeSelectSessionID());
   const requestURL = `http://89.108.103.193:4200/vsmw/session/${sessionID}`;
   try {
-    const session = yield call(request, requestURL);
-    if (!session.length) throw new Error('No session');
-    yield put(sessionGot(session[0]));
+    const session = (yield call(request, requestURL))[0];
+    if (!session) throw new Error('No session');
+    session.vid = Number(session.vid);
+    yield put(HomeSessionGot(session));
+    yield put(sessionGot());
   } catch (err) {
     yield put(sessionGettingError(err));
   }
@@ -38,13 +41,13 @@ export function* getVote() {
   const sessionID = yield select(makeSelectSessionID());
   const requestURL = `http://89.108.103.193:4200/vsmw/vote/${sessionID}/${uniqID}`;
   try {
-    const vote = yield call(request, requestURL);
+    const vote = (yield call(request, requestURL))[0];
     const newVote = {
       session: sessionID,
       fingerprint: uniqID,
       value: -1,
     };
-    if (vote.length) newVote.value = Number(vote[0].value);
+    if (vote) newVote.value = Number(vote.value);
     yield put(voteGot(newVote));
   } catch (err) {
     yield put(voteGettingError(err));

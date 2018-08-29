@@ -1,4 +1,4 @@
-/* eslint-disable react/no-children-prop,no-unused-expressions,react/no-did-mount-set-state */
+/* eslint-disable react/no-children-prop,no-unused-expressions */
 /*
  * SessionPage
  *
@@ -24,10 +24,10 @@ import LoadingIndicator from '../../components/LoadingIndicator';
 import injectReducer from '../../utils/injectReducer';
 import injectSaga from '../../utils/injectSaga';
 import Slider from '../Slider';
+import { makeSelectSession } from '../HomePage/selectors';
 import {
   makeSelectError,
   makeSelectLoading,
-  makeSelectSession,
   makeSelectVote,
 } from './selectors';
 import { getSession, getVote, sendVote } from './actions';
@@ -51,56 +51,30 @@ const Component = styled.div`
 
 /* eslint-disable react/prefer-stateless-function */
 export class SessionPage extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      func: false,
-    };
-  }
   componentDidMount() {
-    if (this.props.id) {
-      if (!getUniqID()) this.props.createID();
-      this.props.initSession(this.props.id);
-      this.setState({
-        func: setInterval(() => {
-          if (
-            getUniqID() &&
-            this.props.vote.fingerprint !== getUniqID() &&
-            !this.props.error
-          )
-            this.props.initVote();
-        }, 500),
-      });
+    if (!this.props.disabled) {
+      if (!getUniqID())
+        this.props.createID(this.props.initVote, this.props.session.vid);
+      else this.props.initVote(this.props.session.vid);
     } else if (this.props.match.params.id) {
       this.props.initSession(this.props.match.params.id);
     }
   }
-  componentWillUnmount() {
-    if (this.state.func) clearInterval(this.state.func);
-  }
   componentDidUpdate(prevProps) {
-    if (this.props.id) {
-      if (prevProps.id !== this.props.id) {
+    if (this.props.session) {
+      if (prevProps.session.vid !== this.props.session.vid) {
         this.componentDidMount();
-      }
-      if (
-        getUniqID() &&
-        this.props.vote.fingerprint === getUniqID() &&
-        this.state.func
-      ) {
-        clearInterval(this.state.func);
-        this.state.func = false;
       }
     }
   }
   render() {
-    const { loading, error, vote, session, id } = this.props;
+    const { loading, error, vote, session, disabled } = this.props;
     let content;
     if (loading && !session && !vote.fingerprint)
       content = <LoadingIndicator />;
     else if (error) {
       content = <Redirect to="/" />;
-    } else if (session && (id ? vote.fingerprint : true)) {
+    } else if (session && (!disabled ? vote.fingerprint : true)) {
       content = (
         <Component image={`http://${session.image}`}>
           <h1 className="title">{session.title}</h1>
@@ -109,7 +83,7 @@ export class SessionPage extends React.PureComponent {
           )}
           {session.type === 'slider' && (
             <Slider
-              disabled={id ? vote.value !== -1 : true}
+              disabled={disabled}
               defaultValue={vote.value === -1 ? 0 : vote.value}
               onAfterChange={value => this.props.sendVote(value)}
             />
@@ -119,18 +93,18 @@ export class SessionPage extends React.PureComponent {
               <Button
                 color="#28385B"
                 onClick={() => {
-                  id && this.props.sendVote(100);
+                  !disabled && this.props.sendVote(100);
                 }}
-                active={id ? vote.value === -1 : false}
+                active={!disabled}
                 clicked={vote.value === 100}
                 children={<h1 className="buttonText">ДА</h1>}
               />
               <Button
                 color="#BD2B2C"
                 onClick={() => {
-                  id && this.props.sendVote(0);
+                  !disabled && this.props.sendVote(0);
                 }}
-                active={id ? vote.value === -1 : false}
+                active={!disabled}
                 clicked={vote.value === 0}
                 children={<h1 className="buttonText">НЕТ</h1>}
               />
@@ -155,7 +129,7 @@ export class SessionPage extends React.PureComponent {
 }
 
 SessionPage.propTypes = {
-  id: PropTypes.number,
+  disabled: PropTypes.bool,
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   vote: PropTypes.object,
@@ -169,11 +143,15 @@ SessionPage.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    initVote: () => dispatch(getVote()),
+    initVote: id => dispatch(getVote(id)),
     initSession: id => dispatch(getSession(id)),
-    createID: () => {
-      new Fingerprint2().get(result => {
+    createID: (callback, id) => {
+      new Fingerprint2({
+        swfPath: '/assets/FontList.swf',
+        excludeUserAgent: true,
+      }).get(result => {
         setUniqID(result);
+        callback(id);
       });
     },
     sendVote: value => dispatch(sendVote(value)),

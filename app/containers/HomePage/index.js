@@ -56,7 +56,7 @@ export class HomePage extends React.PureComponent {
     if (loading && !session) content = <LoadingIndicator />;
     else if (error) {
       content = <LoadingIndicator />;
-    } else if (session) content = <SessionPage id={session} />;
+    } else if (session) content = <SessionPage />;
     else content = null;
     return (
       <article>
@@ -76,7 +76,7 @@ export class HomePage extends React.PureComponent {
 HomePage.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  session: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
+  session: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   init: PropTypes.func,
 };
 

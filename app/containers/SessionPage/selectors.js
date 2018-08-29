@@ -16,9 +16,6 @@ const makeSelectError = () =>
 const makeSelectSessionID = () =>
   createSelector(selectVote, voteState => voteState.get('sessionID'));
 
-const makeSelectSession = () =>
-  createSelector(selectVote, voteState => voteState.get('session'));
-
 const makeSelectVote = () =>
   createSelector(selectVote, voteState => voteState.get('vote').toJS());
 
@@ -27,6 +24,5 @@ export {
   makeSelectLoading,
   makeSelectError,
   makeSelectSessionID,
-  makeSelectSession,
   makeSelectVote,
 };

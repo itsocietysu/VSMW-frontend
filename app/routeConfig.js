@@ -24,7 +24,7 @@ const SessionRoute = (() => {
   const r = new Route();
   r.path = '/session/:id';
   r.exact = false;
-  r.component = params => <SessionPage {...params} />;
+  r.component = params => <SessionPage disabled {...params} />;
   return r;
 })();
 
