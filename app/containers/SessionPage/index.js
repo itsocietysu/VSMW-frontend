@@ -61,7 +61,7 @@ export class SessionPage extends React.PureComponent {
     }
   }
   componentDidUpdate(prevProps) {
-    if (this.props.session) {
+    if (!this.props.disabled) {
       if (prevProps.session.vid !== this.props.session.vid) {
         this.componentDidMount();
       }
