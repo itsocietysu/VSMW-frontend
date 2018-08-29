@@ -25,6 +25,10 @@ h1 {
   margin: auto;
 }
 
+.textSlider.more {
+  color: #FFFFFF;
+}
+
 .block {
   height: 60vh;
   margin: 0 0 20px 0;
@@ -62,7 +66,7 @@ h1 {
   left: 40px;
   bottom: 30px;
   width: auto;
-  height: 25vh;
+  height: 12.5vh;
 }
 
 .img-right {
@@ -70,5 +74,5 @@ h1 {
   right: 40px;
   bottom: 30px;
   width: auto;
-  height: 8vh;
+  height: 4vh;
 }

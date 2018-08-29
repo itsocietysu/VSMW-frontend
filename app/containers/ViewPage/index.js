@@ -53,20 +53,20 @@ const Circle = styled.div`
 function columns(values, names, classes, colors, view) {
   const array = [];
   values.forEach((value, index) => {
+    const isSlider = view === 'slider';
+    const Class = classes[index] ? classes[index] : classes[0];
+    const color = colors[index] ? colors[index] : colors[0];
     array[index] = (
       <div
-        className={`column ${classes[index] ? classes[index] : classes[0]}`}
-        key={`column-${
-          classes[index] ? classes[index] : classes[0]
-        }-${value}-${index}`}
+        className={`column ${Class}`}
+        key={`column-${Class}-${value}-${index}`}
       >
         <div className={`block ${view}`}>
-          <Slider
-            value={value}
-            color={`${colors[index] ? colors[index] : colors[0]}`}
-          />
-          {view === 'slider' && (
-            <h1 className="textSlider yes">{`${value}%`}</h1>
+          <Slider value={value} color={color} />
+          {isSlider && (
+            <h1
+              className={`textSlider ${value < 10 ? 'yes' : 'more'}`}
+            >{`${value}%`}</h1>
           )}
         </div>
         {names[index]}
@@ -110,7 +110,7 @@ export class ViewPage extends React.PureComponent {
                   Image('/100-256x256.png', 100, '6vw'),
                 ],
                 ['no'],
-                ['#BD2B2C'],
+                ['#D1262D'],
                 'slider',
               )}
             </div>
