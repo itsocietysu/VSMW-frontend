@@ -93,18 +93,18 @@ export class SessionPage extends React.PureComponent {
               <Button
                 color="#28385B"
                 onClick={() => {
-                  !disabled && this.props.sendVote(100);
+                  this.props.sendVote(100);
                 }}
-                active={!disabled}
+                active={disabled ? false : vote.value === -1}
                 clicked={vote.value === 100}
                 children={<h1 className="buttonText">ДА</h1>}
               />
               <Button
                 color="#BD2B2C"
                 onClick={() => {
-                  !disabled && this.props.sendVote(0);
+                  this.props.sendVote(0);
                 }}
-                active={!disabled}
+                active={disabled ? false : vote.value === -1}
                 clicked={vote.value === 0}
                 children={<h1 className="buttonText">НЕТ</h1>}
               />
