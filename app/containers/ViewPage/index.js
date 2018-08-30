@@ -1,4 +1,4 @@
-/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/no-array-index-key,no-return-assign,no-multi-assign */
 /*
  * ViewPage
  *
@@ -65,8 +65,8 @@ function columns(values, names, classes, colors, view) {
           <Slider value={value} color={color} />
           {isSlider && (
             <h1
-              className={`textSlider ${value < 10 ? 'yes' : 'more'}`}
-            >{`${value}%`}</h1>
+              className={`textSlider ${value < 9 ? 'yes' : 'more'}`}
+            >{`${Math.round(value)}%`}</h1>
           )}
         </div>
         {names[index]}
@@ -82,12 +82,54 @@ export class ViewPage extends React.PureComponent {
     super(props);
     this.state = {
       func: setInterval(() => {
-        if (!props.loading) props.initSession(props.match.params.id);
+        if (!this.props.loading) props.initSession(props.match.params.id);
       }, 1000),
+      slidersFunc: false,
+      stats: false,
+      maxStats: false,
     };
   }
   componentWillUnmount() {
     clearInterval(this.state.func);
+  }
+  componentWillUpdate(props) {
+    if (props.session && !props.loading) {
+      if (!this.state.stats) {
+        this.state.stats = [];
+        this.state.maxStats = [];
+        props.session.stats.forEach(
+          (stat, index) =>
+            (this.state.stats[index] = this.state.maxStats[index] = stat),
+        );
+        this.forceUpdate();
+      } else {
+        if (!this.state.slidersFunc) this.state.slidersFunc = [];
+        props.session.stats.forEach((stat, index) => {
+          if (this.state.maxStats[index] !== stat) {
+            clearInterval(this.state.slidersFunc[index]);
+            const dif = (stat - this.state.stats[index]) / 9;
+            this.state.maxStats[index] = stat;
+            this.state.slidersFunc[index] = setInterval(() => {
+              if (this.state.stats[index] !== this.state.maxStats[index]) {
+                this.state.stats[index] += dif;
+                if (
+                  Math.abs(
+                    this.state.stats[index] - this.state.maxStats[index],
+                  ) < Math.abs(dif)
+                )
+                  this.state.stats[index] = this.state.maxStats[index];
+                this.forceUpdate();
+              }
+            }, 100);
+          } else if (
+            this.state.stats[index] === stat &&
+            this.state.slidersFunc[index]
+          ) {
+            clearInterval(this.state.slidersFunc[index]);
+          }
+        });
+      }
+    }
   }
   render() {
     const { loading, error, session } = this.props;
@@ -101,7 +143,7 @@ export class ViewPage extends React.PureComponent {
           {session.type === 'slider' && (
             <div className="flex">
               {columns(
-                session.stats,
+                this.state.stats,
                 [
                   Image('/0-256x256.png', 0, '6vw'),
                   Image('/25-256x256.png', 25, '6vw'),
@@ -119,11 +161,13 @@ export class ViewPage extends React.PureComponent {
             <div className="flex">
               <div>
                 <Circle color="#BD2B2C">
-                  <h1 className="no">{`${session.stats[1]}%`}</h1>
+                  <h1 className="no">{`${Math.round(
+                    this.state.stats[1],
+                  )}%`}</h1>
                 </Circle>
               </div>
               {columns(
-                [session.stats[1], session.stats[0]],
+                [this.state.stats[1], this.state.stats[0]],
                 [<h1>НЕТ</h1>, <h1>ДА</h1>],
                 ['no', 'yes'],
                 ['#BD2B2C', '#28385B'],
@@ -131,7 +175,9 @@ export class ViewPage extends React.PureComponent {
               )}
               <div>
                 <Circle color="#28385B">
-                  <h1 className="yes">{`${session.stats[0]}%`}</h1>
+                  <h1 className="yes">{`${Math.round(
+                    this.state.stats[0],
+                  )}%`}</h1>
                 </Circle>
               </div>
             </div>
