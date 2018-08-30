@@ -83,7 +83,7 @@ export class SessionPage extends React.PureComponent {
           )}
           {session.type === 'slider' && (
             <Slider
-              disabled={disabled}
+              disabled={!disabled ? vote.value !== -1 : true}
               defaultValue={vote.value === -1 ? 0 : vote.value}
               onAfterChange={value => this.props.sendVote(value)}
             />
