@@ -182,11 +182,7 @@ export class ViewPage extends React.PureComponent {
               </div>
             </div>
           )}
-          <img
-            className="img-left"
-            src="/logo_vsmysle_2018.svg"
-            alt="Форум ВСМЫСЛЕ"
-          />
+          <img className="img-left" src="/logo_forum.png" alt="Форум" />
           <img className="img-right" src="/logo-dark.svg" alt="ITS" />
         </div>
       );

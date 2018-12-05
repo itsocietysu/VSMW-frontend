@@ -34,7 +34,7 @@ import '!file-loader?name=[name].[ext]!./images/25-256x256.png';
 import '!file-loader?name=[name].[ext]!./images/50-256x256.png';
 import '!file-loader?name=[name].[ext]!./images/75-256x256.png';
 import '!file-loader?name=[name].[ext]!./images/100-256x256.png';
-import '!file-loader?name=[name].[ext]!./images/logo_vsmysle_2018.svg';
+import '!file-loader?name=[name].[ext]!./images/logo_forum.png';
 import '!file-loader?name=[name].[ext]!./images/logo-dark.svg';
 
 import configureStore from './configureStore';
