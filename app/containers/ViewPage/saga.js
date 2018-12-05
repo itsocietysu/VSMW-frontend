@@ -5,13 +5,14 @@ import { sessionGot, sessionGettingError } from './actions';
 import { makeSelectSessionID } from './selectors';
 
 import request from '../../utils/request';
+import { apiUri } from '../../utils/constants';
 
 /**
  * Session get handler
  */
 export function* getSession() {
   const sessionID = yield select(makeSelectSessionID());
-  const requestURL = `http://89.108.103.193:4200/vsmw/stats/${sessionID}`;
+  const requestURL = apiUri.get_stats(sessionID);
   try {
     const session = yield call(request, requestURL);
     if (!session.length) throw new Error('No session');

@@ -3,12 +3,13 @@ import { GET_SESSION } from './constants';
 import { sessionGot, sessionGettingError } from './actions';
 
 import request from '../../utils/request';
+import { apiUri } from '../../utils/constants';
 
 /**
  * Current session get handler
  */
 export function* getSession() {
-  const requestURL = 'http://89.108.103.193:4200/vsmw/current_object';
+  const requestURL = apiUri.current_object;
   try {
     const session = (yield call(request, requestURL))[0];
     session.vid = Number(session.vid);

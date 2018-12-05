@@ -15,13 +15,14 @@ import { makeSelectSessionID, makeSelectVote } from './selectors';
 import request from '../../utils/request';
 
 import { getUniqID } from '../../cookieManager';
+import { apiUri } from '../../utils/constants';
 
 /**
  * Session get handler
  */
 export function* getSession() {
   const sessionID = yield select(makeSelectSessionID());
-  const requestURL = `http://89.108.103.193:4200/vsmw/session/${sessionID}`;
+  const requestURL = apiUri.get_session(sessionID);
   try {
     const session = (yield call(request, requestURL))[0];
     if (!session) throw new Error('No session');
@@ -39,7 +40,7 @@ export function* getSession() {
 export function* getVote() {
   const uniqID = getUniqID();
   const sessionID = yield select(makeSelectSessionID());
-  const requestURL = `http://89.108.103.193:4200/vsmw/vote/${sessionID}/${uniqID}`;
+  const requestURL = apiUri.get_vote(sessionID, uniqID);
   try {
     const vote = (yield call(request, requestURL))[0];
     const newVote = {
@@ -67,7 +68,7 @@ export function* sendVote() {
     },
     body: JSON.stringify(voteData),
   };
-  const requestURL = `http://89.108.103.193:4200/vsmw/vote`;
+  const requestURL = apiUri.send_vote;
   try {
     yield call(request, requestURL, options);
     yield put(voteSent());
