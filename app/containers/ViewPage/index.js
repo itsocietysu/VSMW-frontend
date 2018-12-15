@@ -170,11 +170,11 @@ export class ViewPage extends React.PureComponent {
                 [this.state.stats[1], this.state.stats[0]],
                 [<h1>НЕТ</h1>, <h1>ДА</h1>],
                 ['no', 'yes'],
-                ['#BD2B2C', '#28385B'],
+                ['#BD2B2C', '#FFFFFF'],
                 'poll',
               )}
               <div>
-                <Circle color="#28385B">
+                <Circle color="#FFFFFF">
                   <h1 className="yes">{`${Math.round(
                     this.state.stats[0],
                   )}%`}</h1>
@@ -182,7 +182,7 @@ export class ViewPage extends React.PureComponent {
               </div>
             </div>
           )}
-          <img className="img-left" src="/logo_forum.png" alt="Форум" />
+          <img className="img-left" src="/logo_forum.png" alt="Science Slam" />
           <img className="img-right" src="/logo-dark.svg" alt="ITS" />
         </div>
       );

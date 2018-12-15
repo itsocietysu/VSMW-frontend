@@ -3,6 +3,7 @@
   height: 100vh;
   text-align: center;
   overflow: hidden;
+  background-color: #000000;
 }
 
 h1 {
@@ -54,7 +55,7 @@ h1 {
 }
 
 .yes {
-  color: #28385B;
+  color: #FFFFFF;
 }
 
 .no {
