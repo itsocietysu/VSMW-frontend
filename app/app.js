@@ -34,8 +34,8 @@ import '!file-loader?name=[name].[ext]!./images/25-256x256.png';
 import '!file-loader?name=[name].[ext]!./images/50-256x256.png';
 import '!file-loader?name=[name].[ext]!./images/75-256x256.png';
 import '!file-loader?name=[name].[ext]!./images/100-256x256.png';
-import '!file-loader?name=[name].[ext]!./images/logo_forum.png';
-import '!file-loader?name=[name].[ext]!./images/logo-dark.svg';
+import '!file-loader?name=[name].[ext]!./images/logo_science_slam.png';
+import '!file-loader?name=[name].[ext]!./images/logo-white.svg';
 
 import configureStore from './configureStore';
 
