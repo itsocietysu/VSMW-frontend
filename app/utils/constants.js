@@ -2,7 +2,7 @@ export const RESTART_ON_REMOUNT = '@@saga-injector/restart-on-remount';
 export const DAEMON = '@@saga-injector/daemon';
 export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
 
-const startApiUri = 'http://176.99.12.32:4200/vsmw';
+const startApiUri = 'http://193.124.206.136:4200/vsmw';
 export const apiUri = {
   current_object: `${startApiUri}/current_object`,
   get_session: sessionID => `${startApiUri}/session/${sessionID}`,
