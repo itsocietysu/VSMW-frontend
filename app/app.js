@@ -36,6 +36,7 @@ import '!file-loader?name=[name].[ext]!./images/75-256x256.png';
 import '!file-loader?name=[name].[ext]!./images/100-256x256.png';
 import '!file-loader?name=[name].[ext]!./images/logo_science_slam.png';
 import '!file-loader?name=[name].[ext]!./images/logo-white.svg';
+import '!file-loader?name=[name].[ext]!./images/logo-sirius.png';
 
 import configureStore from './configureStore';
 
