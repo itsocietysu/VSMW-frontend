@@ -79,7 +79,7 @@ export class SessionPage extends React.PureComponent {
         <Component image={`http://${session.image}`}>
           <h1 className="title">{session.title}</h1>
           {vote.value !== -1 && (
-            <p className={`p ${session.type}`}>ВАШ ГОЛОС УЧТЕН :)</p>
+            <p className={`p ${session.type}`}>VOTE ACCEPTED :)</p>
           )}
           {session.type === 'slider' && (
             <Slider
@@ -97,7 +97,7 @@ export class SessionPage extends React.PureComponent {
                 }}
                 active={disabled ? false : vote.value === -1}
                 clicked={vote.value === 100}
-                children={<h1 className="buttonText">ДА</h1>}
+                children={<h1 className="buttonText">YES</h1>}
               />
               <Button
                 color="#BD2B2C"
@@ -106,7 +106,7 @@ export class SessionPage extends React.PureComponent {
                 }}
                 active={disabled ? false : vote.value === -1}
                 clicked={vote.value === 0}
-                children={<h1 className="buttonText">НЕТ</h1>}
+                children={<h1 className="buttonText">NO</h1>}
               />
             </div>
           )}

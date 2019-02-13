@@ -168,7 +168,7 @@ export class ViewPage extends React.PureComponent {
               </div>
               {columns(
                 [this.state.stats[1], this.state.stats[0]],
-                [<h1>НЕТ</h1>, <h1>ДА</h1>],
+                [<h1>NO</h1>, <h1>YES</h1>],
                 ['no', 'yes'],
                 ['#BD2B2C', '#FFFFFF'],
                 'poll',
@@ -182,7 +182,7 @@ export class ViewPage extends React.PureComponent {
               </div>
             </div>
           )}
-          <img className="img-left" src="/logo-sirius.png" alt="Science Slam" />
+          <img className="img-left" src="/logo-spie.png" alt="Science Slam" />
           <img className="img-right" src="/logo-white.svg" alt="ITS" />
         </div>
       );
